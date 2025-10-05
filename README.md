@@ -21,3 +21,7 @@ NOTION_DATABASE_ID="your_database_id"
 ```bash
 npm start
 ```
+
+## ToDo
+- [ ] Provide a UI to choose which clippings need to be added.
+- [ ] ...
