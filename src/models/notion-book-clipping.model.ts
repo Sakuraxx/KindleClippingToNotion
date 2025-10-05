@@ -2,10 +2,10 @@ export interface NotionBookClipping
 {
   id: string, // page id
   title: string,
-  blocks: NotionBlockWrapper[] | null
+  blocks: NotionBlock[]
 }
 
-export interface NotionBlockWrapper
+export interface NotionBlock
 {
   id: string, // block id
   content: string // plain text
