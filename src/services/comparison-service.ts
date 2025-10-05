@@ -15,7 +15,7 @@ export function compareBooks(notionBooks: Book[], kindleBooks: Book[]): Comparis
 
   for(const kindleBook of kindleBooks) {
     const key = getBookKey(kindleBook);
-    const notionBook = notionBookMap.get(key);
+    const notionBook:Book | undefined= notionBookMap.get(key);
     if(!notionBook) {
       result.newBooks.push(kindleBook);
       continue;
@@ -24,11 +24,16 @@ export function compareBooks(notionBooks: Book[], kindleBooks: Book[]): Comparis
     const existingClippings = new Set(notionBook.clippings);
     const newClippings = kindleBook.clippings.filter(clip => !existingClippings.has(clip));
     if(newClippings.length > 0) {
-      result.updatedBooks.push({
+      const bookToPush: Book = {
         title: kindleBook.title,
         author: kindleBook.author,
-        clippings: newClippings
-      });
+        clippings: newClippings,
+      };
+    
+      if (notionBook.id !== undefined) {
+        bookToPush.id = notionBook.id;
+      }
+      result.updatedBooks.push(bookToPush);
     }
   }
 
