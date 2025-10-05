@@ -89,3 +89,19 @@ export async function createNotionPagesForNewBooks(apiKey: string, datasourceId:
   }
   console.log("Finished creating new pages.");
 }
+
+export async function appendNotionBlocksToExistingBooks(apiKey: string, books: Book[]) {
+  const notion = new Client({ auth: apiKey });
+  for (const book of books) {
+    if (!book.id) {
+      console.warn(`Skipping book "${book.title}" as it does not have a Notion page ID.`);
+      continue;
+    }
+    try {
+        await appendBlocksToPage(notion, book);
+    } catch (error: any) {
+        console.error(`  > Failed to append blocks for "${book.title}". Error: ${error.message}`);
+    }
+  }
+  console.log("Finished appending blocks to existing pages.");
+}
