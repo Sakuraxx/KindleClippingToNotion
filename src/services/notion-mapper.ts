@@ -2,7 +2,7 @@
 import { isFullBlock } from '@notionhq/client';
 import { isTextRichTextItemResponse } from "@notionhq/client/build/src/helpers.js";
 import type { PageObjectResponse, ListBlockChildrenResponse } from '@notionhq/client';
-import type { NotionBookClipping, NotionBlock } from '../models/notion-book-clipping.model.js';
+import type { NotionBookClipping, NotionBlock } from '../models/notion-clipping.model.js';
 
 export function mapToNotionBookClipping(page: PageObjectResponse, blocksResponse: ListBlockChildrenResponse): NotionBookClipping {
   const titleProp = page.properties["Title"];
