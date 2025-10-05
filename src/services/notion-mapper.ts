@@ -7,6 +7,8 @@ import type { NotionBookClipping, NotionBlock } from '../models/notion-clipping.
 export function mapToNotionBookClipping(page: PageObjectResponse, blocksResponse: ListBlockChildrenResponse): NotionBookClipping {
   const titleProp = page.properties["Title"];
   const title = (titleProp?.type == "title" && titleProp.title[0]?.plain_text) || "Untitled";
+  const authorProp = page.properties["Author"];
+  const author = (authorProp?.type == "rich_text" && authorProp.rich_text[0]?.plain_text) || "Unknown Author";
 
   const blocks: NotionBlock[] = [];
   for (const block of blocksResponse.results) {
@@ -25,6 +27,7 @@ export function mapToNotionBookClipping(page: PageObjectResponse, blocksResponse
   return {
     id: page.id,
     title,
+    author,
     blocks
   }
 }
